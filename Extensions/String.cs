@@ -25,10 +25,20 @@ namespace Utility.Extensions
         public static DateTime ToAcDate(this string value)
         {
             if (value.IsNullOrEmpty()) { throw new ArgumentNullException(); }
-            var strYear = value.Substring(0, 3);
-            var strMonthDay = $"{value.Substring(3, 2)}/{value.Substring(5, 2)}";
-            var strAcDate = $"{strYear.ToAcYear()}/{strMonthDay}";
-            return DateTime.Parse(strAcDate); ;
+            if (value.Length < 7 || value.Length > 8) { throw new ArgumentOutOfRangeException(); }
+            if (value.Length == 7) {
+                var strYear = value.Substring(0, 3);
+                var strMonthDay = $"{value.Substring(3, 2)}/{value.Substring(5, 2)}";
+                var strAcDate = $"{strYear.ToAcYear()}/{strMonthDay}";
+                return DateTime.Parse(strAcDate); ;
+            }
+            if (value.Length == 8) {
+                var strYear = value.Substring(0, 4);
+                var strMonthDay = $"{value.Substring(4, 2)}/{value.Substring(6, 2)}";
+                var strAcDate = $"{strYear}/{strMonthDay}";
+                return DateTime.Parse(strAcDate);
+            }
+            return DateTime.MaxValue;
         }
 
         public static int ToAcYear(this string value)
