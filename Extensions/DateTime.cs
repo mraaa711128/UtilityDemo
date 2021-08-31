@@ -25,5 +25,9 @@ namespace Utility.Extensions
             }
             
         }
+
+        public static bool IsMinOrMaxDateTime(this DateTime value) {
+            return value.Equals(DateTime.MinValue) || value.Equals(DateTime.MaxValue);
+        }
     }
 }
