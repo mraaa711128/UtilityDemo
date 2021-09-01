@@ -56,7 +56,7 @@ namespace Utility.Extensions
             var strValue = value.PadRight(6, '0');
             if (!value.IsNumeric()) { throw new ArgumentOutOfRangeException(); }
             var strDate = DateTime.Today.ToString("yyyy/MM/dd");
-            var strTime = $"{value.Substring(0, 2)}:{value.Substring(2, 2)}:{value.Substring(4, 2)}";
+            var strTime = $"{strValue.Substring(0, 2)}:{strValue.Substring(2, 2)}:{strValue.Substring(4, 2)}";
             return DateTime.Parse($"{strDate} {strTime}");
         }
 
