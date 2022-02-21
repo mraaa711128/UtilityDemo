@@ -87,5 +87,21 @@ namespace Utility.Extensions
             }
             return value;
         }
+
+        public static string FromHexToUnicode(this string value) {
+            if (value.IsNullOrEmpty()) { throw new ArgumentNullException(); }
+            if (value.Length % 2 > 0) { throw new ArgumentOutOfRangeException(); }
+            var textBytes = new byte[value.Length / 2];
+            for (int i = 0; i < value.Length / 2; i++) {
+                textBytes[i] = Convert.ToByte(value.Substring(i * 2, 2), 16);
+            }
+            return Encoding.Unicode.GetString(textBytes);
+        }
+
+        public static string FromUnicodeToHex(this string value) {
+            if (value.IsNullOrEmpty()) { throw new ArgumentNullException(); }
+            var textBytes = Encoding.Unicode.GetBytes(value);
+            return Convert.ToHexString(textBytes);
+        }
     }
 }
