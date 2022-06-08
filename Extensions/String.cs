@@ -22,6 +22,13 @@ namespace Utility.Extensions
             if (includeSpace && value.Trim() == "") { return true; }
             return false;
         }
+
+        public static string NullableTrim(this string value)
+        {
+            if (value is null) { return ""; }
+            return value.Trim();
+        }
+
         public static DateTime ToAcDate(this string value)
         {
             if (value.IsNullOrEmpty()) { throw new ArgumentNullException(); }
