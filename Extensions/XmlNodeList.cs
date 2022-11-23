@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace Utility.Extensions {
+namespace Utility.Extensions
+{
     public static class XmlNodeListExtension {
         public static bool IsNullOrEmpty(this XmlNodeList value) {
             if (value is null) { return true; }

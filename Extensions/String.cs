@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Utility.Extensions.Array;
+using Utility.Extensions;
 
 namespace Utility.Extensions
 {
@@ -109,6 +109,26 @@ namespace Utility.Extensions
             if (value.IsNullOrEmpty()) { throw new ArgumentNullException(); }
             var textBytes = Encoding.Unicode.GetBytes(value);
             return Convert.ToHexString(textBytes);
+        }
+
+        public static DateTime FromBirthDateToAcDate(this string value)
+        {
+            if (value.IsNullOrEmpty()) { throw new ArgumentNullException(); }
+            if ("+,-".Contains(value.Substring(0, 1)))
+            {
+                if (value.Length != 8) { throw new ArgumentOutOfRangeException(); }
+                if (!value.Substring(1,3).IsNumeric()) { throw new ArgumentOutOfRangeException(); }
+                bool isNegative = (value.Substring(0, 1) == "-");
+                var chiYear = int.Parse(value.Substring(1, 3));
+                var acYear = (isNegative ? 1911 - chiYear : 1911 + chiYear);
+                if (!value.Substring(4, 4).IsNumeric()) { throw new ArgumentOutOfRangeException(); }
+                var acMonth = int.Parse(value.Substring(4, 2));
+                var acDay = int.Parse(value.Substring(6, 2));
+                return new DateTime(acYear, acMonth, acDay);
+            } else
+            {
+                return value.ToAcDate();
+            }
         }
     }
 }
